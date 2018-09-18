@@ -1,0 +1,27 @@
+def remaining_balance(PRINCIPAL,ANNUAL_INTEREST_RATE,DURATION,NUMBER_OF_PAYMENTS):
+    n=DURATION*12
+    if ANNUAL_INTEREST_RATE==0:
+        bALANCE=PRINCIPAL*(1-(NUMBER_OF_PAYMENTS/n))
+    else:
+        r=(ANNUAL_INTEREST_RATE/100)/12
+        bALANCE=PRINCIPAL*(((1+r)**n)-((1+r)**NUMBER_OF_PAYMENTS))/(((1+r)**n)-1)
+    return bALANCE
+def monthly_loan_payment(PRINCIPAL,ANNUAL_INTEREST_RATE,DURATION):
+    n=DURATION*12
+    if ANNUAL_INTEREST_RATE!=0:
+        r=(ANNUAL_INTEREST_RATE/100)/12
+    else:
+        r=PRINCIPAL/n
+    mONTHLY_pAYMENT=PRINCIPAL*(r*((1+r)**n)/(((1+r)**n)-1))
+    return mONTHLY_pAYMENT
+PRINCIPAL=float(input('Enter loan amount: '))
+ANNUAL_INTEREST_RATE=float(input('Enter annual interest rate (percent): '))
+DURATION=int(input('Enter loan duration in years: '))
+mONTHLY_pAYMENT=monthly_loan_payment(PRINCIPAL,ANNUAL_INTEREST_RATE,DURATION)
+print('LOAN AMOUNT: ',PRINCIPAL,' INTEREST RATE (PERCENT): ',ANNUAL_INTEREST_RATE)
+print('DURATIION (YEARS): ',DURATION,' MONTHLY PAYMENT: ',int(mONTHLY_pAYMENT))
+for YEARS in range(1,DURATION+1):
+    NUMBER_OF_PAYMENTS=YEARS*12
+    TOTAL_PAYMENT=(mONTHLY_pAYMENT*YEARS)*12
+    y=remaining_balance(PRINCIPAL,ANNUAL_INTEREST_RATE,DURATION,NUMBER_OF_PAYMENTS)
+    print('YEARS: ',YEARS,' BALANCE: ',int(y),' TOTAL PAYMENTS: ',int(TOTAL_PAYMENT))
